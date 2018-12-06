@@ -3,6 +3,7 @@ d3.csv("micro.csv", function(error, data) {
     const fatality = [];
     for(i = 1; i < data.length; i++) {
         fatalityToInteger = parseInt(data[i]["Fatal_US"]);
+<<<<<<< HEAD
         if(!isNaN(fatalityToInteger) && fatalityToInteger !== 0) {
             fatality.push(fatalityToInteger);
         }
@@ -26,11 +27,19 @@ top50Percent = fatality.filter(deaths => deaths > mostFatal);
 
 console.log(top50Percent);
 
+=======
+        if(!isNaN(fatalityToInteger)) {
+            fatality.push(fatalityToInteger);
+        }
+    }
+    console.log(fatality);
+>>>>>>> b104dd2c906b316ea301fced13731f632666bc3e
 
 var width = 1000,
     barHeight = 20;
 
 var x = d3.scale.linear()
+<<<<<<< HEAD
     .domain([0, d3.max(top50Percent)])
     .range([0, d3.max(top50Percent)]);
 
@@ -55,12 +64,26 @@ var bar = chart.selectAll("g")
   .attr("class", "x axis")
     // .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; })
     .call(xAxis);
+=======
+    .domain([0, d3.max(fatality)])
+    .range([0, width]);
+
+var chart = d3.select(".chart")
+    .attr("width", width)
+    .attr("height", barHeight * fatality.length);
+
+var bar = chart.selectAll("g")
+    .data(fatality)
+  .enter().append("g")
+    .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+>>>>>>> b104dd2c906b316ea301fced13731f632666bc3e
 
 bar.append("rect")
     .attr("width", x)
     .attr("height", barHeight - 1);
 
 bar.append("text")
+<<<<<<< HEAD
     .attr("x", function(d) { return x(d+20); })
     .attr("y", barHeight / 2)
     .attr("dy", ".35em")
@@ -73,5 +96,11 @@ bar.append("text")
 //     .attr("transform", "translate(0," + height + ")")
 //     .call(xAxis);
 
+=======
+    .attr("x", function(d) { return x(d) - 3; })
+    .attr("y", barHeight / 2)
+    .attr("dy", ".35em")
+    .text(function(d) { return d; });
+>>>>>>> b104dd2c906b316ea301fced13731f632666bc3e
 });
 
